@@ -22,7 +22,7 @@ namespace ConsoleApp3
             {
                 if (a.Contains(item))
                 {
-                    Console.WriteLine("please enter valid input without no special characters");
+                    Console.WriteLine("please enter valid input without special characters");
                     break;
                 }
 
@@ -30,7 +30,7 @@ namespace ConsoleApp3
             if (n >= 500)
             {
                 
-                Console.WriteLine("please enter valid input");
+                Console.WriteLine("please enter valid input less than 500 characters");
             }
             else
             {
