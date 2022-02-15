@@ -14,8 +14,7 @@ namespace ConsoleApp3
         {
             Program p = new Program();
             Console.WriteLine("Enter an input of less than 500 characters");
-            string a;
-            a = Console.ReadLine();
+            string a=Console.ReadLine();
             int n = a.Length;
             
             string str = @"!@#$%^&*()_+";
