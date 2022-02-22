@@ -11,65 +11,44 @@ namespace ConsoleApp3
     class Program
     {
 
-        public static bool checkpal(string word)
-        {
-            int n=word.Length;
-            word = word.ToLower();
-            for(int i = 0; i < n; i++, n--)
-       
-            {
-                if (word[i] != word[n - 1])
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
         public static int countpal(string str)
         {
-            str = str + " ";
-            string word = "";
-            int count=0;
-            for(int i = 0; i < str.Length; i++)
+            int c = 0;
+            string[] wordslist = str.Split(' ');
+            for (int i = 0; i < wordslist.Length; i++)
             {
-                char ch = str[i]; 
-                if (ch != ' ')
-                    {
-                        word += ch;
-                    }
-                else
+                //Console.WriteLine(wordslist[i]);
+                char[] charArray = wordslist[i].ToCharArray();
+                Array.Reverse(charArray);
+                //Console.WriteLine(new string (charArray));
+                if(new string(charArray) == wordslist[i])
                 {
-                    if (checkpal(word))
-
-                    {
-                        count++;
-                    }
-                    word = "";
+                    c++;
                 }
-            }
 
-            return count;
-        
-    }
+            }
+            return c;
+        } 
+
+        public static string ValidateInputString(string a)
+        {
+            Regex regex = new Regex("[!@#$%^&*]");
+            bool hasSpecialchars = regex.IsMatch(a);
+            if (hasSpecialchars == true)
+            {
+                return ("please enter valid input without aany special characters");
+            }
+            else return a;
+            
+        }
           
         static void Main(string[] args)
         {
             Console.WriteLine("Enter an input of less than 500 characters");
             string a=Console.ReadLine();
-            int n = a.Length;
-            
-            string str = @"!@#$%^&*()_+";
-            foreach (var item in str)
-            {
-                if (a.Contains(item))
-                {
-                    Console.WriteLine("please enter valid input without special characters");
-                    break;
-                }
-
-            }
-            if (n >= 500)
+            Console.WriteLine(ValidateInputString(a));
+           
+            if (a.Length >= 500)
             {
                 
                 Console.WriteLine("please enter valid input less than 500 characters");
@@ -78,23 +57,31 @@ namespace ConsoleApp3
             {
 
                 int c = 1;
-                for(int i = 0; i < n; i++)
+                for(int i = 0; i < a.Length; i++)
                 {
                     if(a[i]==' ' || a[i]=='\n' || a[i] =='\t')
                     {
+                        //Console.WriteLine(a[i-1]);
                         c++;
+                        //Console.WriteLine(c);
                     }
                 }
-                
-
-                string fn = @"C:\Temp\CSharpAuthors.txt";
-                using (StreamWriter writer = new StreamWriter(fn))
+                string fn = @"C:\Tempo\UserInput.txt";
+                try
                 {
-                    writer.WriteLine(a);
-                    writer.WriteLine("number of words present in input string is:{0}", c);
-                    writer.WriteLine("number of palendromic words present in input string is:{0}", countpal(a) );
+                    using (StreamWriter writer = new StreamWriter(fn))
+                    {
+                        writer.WriteLine(a);
+                        writer.WriteLine("number of words present in input string is:{0}", c);
+                        writer.WriteLine("number of palendromic words present in input string is:{0}", countpal(a));
 
+                    }
                 }
+                catch
+                {
+                    Console.WriteLine("File not found");
+                }
+                
 
 
             }
