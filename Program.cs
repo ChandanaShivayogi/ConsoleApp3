@@ -18,18 +18,19 @@ namespace ConsoleApp3
             for (int i = 0; i < wordslist.Length; i++)
             {
                 //Console.WriteLine(wordslist[i]);
-                char[] charArray = wordslist[i].ToCharArray();
-                Array.Reverse(charArray);
-                //Console.WriteLine(new string (charArray));
-                if(new string(charArray) == wordslist[i])
+                if(wordslist[i].Length>1)
                 {
-                    c++;
+                    char[] charArray = wordslist[i].ToCharArray();
+                    Array.Reverse(charArray);
+                    //Console.WriteLine(new string (charArray));
+                    if(new string(charArray) == wordslist[i])
+                    {
+                        c++;
+                    }
                 }
-
             }
             return c;
         } 
-
         public static string ValidateInputString(string a)
         {
             Regex regex = new Regex("[!@#$%^&*]");
@@ -40,6 +41,25 @@ namespace ConsoleApp3
             }
             else return a;
             
+        }
+
+        public static void WriteFileToPath(int c, string a)
+        {
+            string fn = @"C:\Temp\UserInput.txt";
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(fn))
+                {
+                    writer.WriteLine(a);
+                    writer.WriteLine("number of words present in input string is:{0}", c);
+                    writer.WriteLine("number of palendromic words present in input string is:{0}", countpal(a));
+
+                }
+            }
+            catch
+            {
+                Console.WriteLine("File not found");
+            }
         }
           
         static void Main(string[] args)
@@ -66,32 +86,10 @@ namespace ConsoleApp3
                         //Console.WriteLine(c);
                     }
                 }
-                string fn = @"C:\Tempo\UserInput.txt";
-                try
-                {
-                    using (StreamWriter writer = new StreamWriter(fn))
-                    {
-                        writer.WriteLine(a);
-                        writer.WriteLine("number of words present in input string is:{0}", c);
-                        writer.WriteLine("number of palendromic words present in input string is:{0}", countpal(a));
-
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("File not found");
-                }
+                WriteFileToPath(c, a);
                 
-
-
             }
             Console.ReadLine();
-           
-
-
         }
-        
-
-
     }
 }
